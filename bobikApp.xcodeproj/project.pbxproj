@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		7F3BA9EE2B5D9F630092C286 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BA9ED2B5D9F630092C286 /* AppDelegate.swift */; };
 		7F3BA9F02B5D9F630092C286 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BA9EF2B5D9F630092C286 /* SceneDelegate.swift */; };
-		7F3BA9F22B5D9F630092C286 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BA9F12B5D9F630092C286 /* ViewController.swift */; };
 		7F3BA9F52B5D9F630092C286 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BA9F32B5D9F630092C286 /* Main.storyboard */; };
 		7F3BA9F82B5D9F640092C286 /* bobikApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BA9F62B5D9F640092C286 /* bobikApp.xcdatamodeld */; };
 		7F3BA9FA2B5D9F640092C286 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BA9F92B5D9F640092C286 /* Assets.xcassets */; };
 		7F3BA9FD2B5D9F640092C286 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BA9FB2B5D9F640092C286 /* LaunchScreen.storyboard */; };
+		7F3BAA052B5DAA5D0092C286 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA042B5DAA5D0092C286 /* TableVC.swift */; };
+		7F3BAA072B5DAAA20092C286 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA062B5DAAA20092C286 /* Person.swift */; };
+		7F3BAA092B5DAACE0092C286 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA082B5DAACE0092C286 /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F3BA9EA2B5D9F630092C286 /* bobikApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bobikApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F3BA9ED2B5D9F630092C286 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F3BA9EF2B5D9F630092C286 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7F3BA9F12B5D9F630092C286 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7F3BA9F42B5D9F630092C286 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F3BA9F72B5D9F640092C286 /* bobikApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bobikApp.xcdatamodel; sourceTree = "<group>"; };
 		7F3BA9F92B5D9F640092C286 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F3BA9FC2B5D9F640092C286 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F3BA9FE2B5D9F640092C286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F3BAA042B5DAA5D0092C286 /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
+		7F3BAA062B5DAAA20092C286 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		7F3BAA082B5DAACE0092C286 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +64,14 @@
 			children = (
 				7F3BA9ED2B5D9F630092C286 /* AppDelegate.swift */,
 				7F3BA9EF2B5D9F630092C286 /* SceneDelegate.swift */,
-				7F3BA9F12B5D9F630092C286 /* ViewController.swift */,
+				7F3BAA042B5DAA5D0092C286 /* TableVC.swift */,
 				7F3BA9F32B5D9F630092C286 /* Main.storyboard */,
 				7F3BA9F92B5D9F640092C286 /* Assets.xcassets */,
 				7F3BA9FB2B5D9F640092C286 /* LaunchScreen.storyboard */,
 				7F3BA9FE2B5D9F640092C286 /* Info.plist */,
 				7F3BA9F62B5D9F640092C286 /* bobikApp.xcdatamodeld */,
+				7F3BAA062B5DAAA20092C286 /* Person.swift */,
+				7F3BAA082B5DAACE0092C286 /* CustomCell.swift */,
 			);
 			path = bobikApp;
 			sourceTree = "<group>";
@@ -141,9 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F3BA9F22B5D9F630092C286 /* ViewController.swift in Sources */,
+				7F3BAA072B5DAAA20092C286 /* Person.swift in Sources */,
 				7F3BA9F82B5D9F640092C286 /* bobikApp.xcdatamodeld in Sources */,
 				7F3BA9EE2B5D9F630092C286 /* AppDelegate.swift in Sources */,
+				7F3BAA052B5DAA5D0092C286 /* TableVC.swift in Sources */,
+				7F3BAA092B5DAACE0092C286 /* CustomCell.swift in Sources */,
 				7F3BA9F02B5D9F630092C286 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
