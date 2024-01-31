@@ -12,16 +12,19 @@ class TableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 1...5 {
-            let man = Person(name: "Bob \(i)")
-            people.append(man)
-        }
-        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
     }
     
-    var people = [Person]()
+    lazy var people: [Person] = {
+           var peops = [Person]()
+           for i in 1...20 {
+               let man = Person(name: "Bob \(i)")
+               peops.append(man)
+           }
+           return peops
+       }()
+
     let cellID = "inboxCell"
     
     // MARK: - Table view data source
