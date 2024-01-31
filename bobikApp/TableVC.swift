@@ -15,18 +15,21 @@ class TableVC: UITableViewController {
         tableView.estimatedRowHeight = 100
     }
     
-    var openedCellList: [Bool] = []
-    lazy var people: [Person] = {
+    lazy var people = {
         var peops = [Person]()
         for i in 1...20 {
             let man = Person(name: "Bob \(i)")
             peops.append(man)
         }
-        openedCellList = Array(repeating: false, count: peops.count)
         return peops
     }()
+    
+    lazy var openedCellStatus: [Bool] = {
+        return Array(repeating: false, count: people.count)
+    }()
+    
     let cellID = "inboxCell"
-
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +39,7 @@ class TableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
         cell.nameLabel.text = people[indexPath.row].name
-        if openedCellList[indexPath.row] == false {
+        if openedCellStatus[indexPath.row] == false {
             cell.bioLabel.text = "tap to expand -->"
         } else {
             cell.bioLabel.text = people[indexPath.row].bio
@@ -44,18 +47,21 @@ class TableVC: UITableViewController {
         return cell
     }
     
-    var tappeCell: UITableViewCell?
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let lastCell = tappeCell as? CustomCell {
-            lastCell.bioLabel.text = "tap to expand -->"
+        guard openedCellStatus[indexPath.row] == false else {return} // nothing happens if user taps on already opened cell
+        // Checks if there is an opened cell and if - updates UI, updates data model
+        if let lastTappeCellIdex = openedCellStatus.firstIndex(of: true) {
+            openedCellStatus[lastTappeCellIdex] = false
+            let indexPath = IndexPath(row: lastTappeCellIdex, section: 0)
+            if let lastTappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
+                lastTappedCell.bioLabel.text = "tap to expand -->"
+            }
         }
-        guard let cell = tableView.cellForRow(at: indexPath) as? CustomCell else {return}
-        openedCellList = Array(repeating: false, count: people.count)
-        openedCellList[indexPath.row] = true
-        let tappedMan = people[indexPath.row]
-        cell.bioLabel.text = tappedMan.bio
+        // Updates newly tapped cell
+        guard let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell else {return}
+        tappedCell.bioLabel.text = people[indexPath.row].bio
         tableView.beginUpdates()
         tableView.endUpdates()
-        tappeCell = cell
+        openedCellStatus[indexPath.row] = true
     }
 }
