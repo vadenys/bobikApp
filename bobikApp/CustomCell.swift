@@ -10,8 +10,6 @@ import UIKit
 class CustomCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
-
-    var openedCell = false
+    
+    var expandedCell = false
 }
-
-
