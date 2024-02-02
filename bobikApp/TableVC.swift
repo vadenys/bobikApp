@@ -8,12 +8,12 @@
 import UIKit
 
 class TableVC: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.dragDelegate = self
     }
     
     lazy var people = {
@@ -36,7 +36,7 @@ class TableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
         cell.nameLabel.text = people[indexPath.row].name
@@ -64,5 +64,25 @@ class TableVC: UITableViewController {
         tableView.beginUpdates()
         tableView.endUpdates()
         openedCellStatus[indexPath.row] = true
+    }
+    
+}
+
+// Row rearrangement
+extension TableVC: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let itemProvider = NSItemProvider()
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let men = people[sourceIndexPath.row]
+        people.remove(at: sourceIndexPath.row)
+        people.insert(men, at: destinationIndexPath.row)
+        
+       let cellStatus = openedCellStatus[sourceIndexPath.row]
+        openedCellStatus.remove(at: sourceIndexPath.row)
+        openedCellStatus.insert(cellStatus, at: destinationIndexPath.row)
     }
 }
