@@ -56,13 +56,16 @@ class TableVC: UITableViewController {
             let indexPath = IndexPath(row: lastTappeCellIdex, section: 0)
             if let lastTappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
                 lastTappedCell.bioLabel.text = "tap to expand -->"
+                tableView.beginUpdates()
+                tableView.endUpdates()
             }
+        } else {
+            // Updates newly tapped cell
+            guard let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell else {return}
+            tappedCell.bioLabel.text = people[indexPath.row].bio
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            openedCellStatus[indexPath.row] = true
         }
-        // Updates newly tapped cell
-        guard let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell else {return}
-        tappedCell.bioLabel.text = people[indexPath.row].bio
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        openedCellStatus[indexPath.row] = true
     }
 }
