@@ -70,4 +70,13 @@ class TableVC: UITableViewController {
             openedCellIndex = nil
         }
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        people.remove(at: indexPath.row)
+        if openedCellIndex == indexPath.row {
+            openedCellIndex = nil
+        }
+        let rowIndex = [indexPath]
+        tableView.deleteRows(at: rowIndex, with: .automatic)
+    }
 }
