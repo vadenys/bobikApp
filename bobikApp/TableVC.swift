@@ -7,18 +7,21 @@
 
 import UIKit
 
-class TableVC: UITableViewController {
+class TableVC: UITableViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(closeTheCell))
+        gestureRecogniser.delegate = self
+        view.addGestureRecognizer(gestureRecogniser)
+        gestureRecogniser.cancelsTouchesInView = false
     }
     
     lazy var people = {
         var peops = [Person]()
-        for i in 1...20 {
+        for i in 1...5 {
             let man = Person(name: "Bob \(i)")
             peops.append(man)
         }
@@ -67,6 +70,22 @@ class TableVC: UITableViewController {
                 tableView.beginUpdates()
                 tableView.endUpdates()
             }
+            openedCellIndex = nil
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return (touch.view === tableView)
+    }
+    
+    @objc func closeTheCell(_ gesture: UITapGestureRecognizer) {
+        let pointView = gesture.location(in: view)
+        if let openedCell = openedCellIndex {
+            let indexPath = IndexPath(row: openedCell, section: tableView.numberOfSections - 1)
+            let cell = tableView.cellForRow(at: indexPath) as! CustomCell
+            cell.bioLabel.text = "tap to expand -->"
+            tableView.beginUpdates()
+            tableView.endUpdates()
             openedCellIndex = nil
         }
     }
