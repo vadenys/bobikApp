@@ -79,6 +79,15 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        people.remove(at: indexPath.row)
+        if openedCellIndex == indexPath.row {
+            openedCellIndex = nil
+        }
+        let rowIndex = [indexPath]
+        tableView.deleteRows(at: rowIndex, with: .automatic)
+    }
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view === tableView)
     }
