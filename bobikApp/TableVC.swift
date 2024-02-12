@@ -23,7 +23,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     lazy var people = {
         var peops = [Person]()
         for i in 1...5 {
-            let man = Person(name: "Bob \(i)")
+            let man = Person()
             peops.append(man)
         }
         return peops
@@ -41,36 +41,14 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        //cell.nameLabel.text = people[indexPath.row].name
-        cell.nameField.delegate = cell
-        cell.bioField.delegate = cell
+        cell.cellForRowConfigure()
         if openedCellIndex == indexPath.row {
-            cell.bioField.text = people[indexPath.row].bio
+            cell.bioField.isHidden = false
         } else {
-            cell.bioField.text = ""
-            let imageViewHeight = cell.checkBox.frame.height
-//            print(imageViewHeight)
-//            tableView.rowHeight = 40
+            cell.bioField.isHidden = true
         }
         return cell
     }
-    
-    //var tappedRowIndex: Int?
-
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if let tappedRowIndex = tappedRowIndex, indexPath.row == tappedRowIndex {
-//            return UITableView.automaticDimension
-//        } else {
-//            return 48
-//        }
-//        
-//    }
-    
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        tappedRowIndex = indexPath.row
-//        tableView.reloadData()
-//        return indexPath
-//    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard openedCellIndex != indexPath.row else { return }
@@ -84,9 +62,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
             openedCellIndex = nil
         } else {
             if let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
-                tappedCell.nameField.isUserInteractionEnabled = true
-                tappedCell.nameField.resignFirstResponder()
-                tappedCell.bioField.text = people[indexPath.row].bio
+                tappedCell.openCellConfigure()
                 tableView.beginUpdates()
                 tableView.endUpdates()
             }
@@ -104,7 +80,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === tableView)
+        return (touch.view === view)
     }
     
     @objc func closeTheCell(_ gesture: UITapGestureRecognizer) {
