@@ -23,17 +23,13 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     lazy var people = {
         var peops = [Person]()
         for i in 1...5 {
-            let man = Person(name: "Bob \(i)")
+            let man = Person()
             peops.append(man)
         }
         return peops
     }()
     
-    lazy var openedCellStatus: [Bool] = {
-        return Array(repeating: false, count: people.count)
-    }()
-    
-    var openedCellIndex: Int? = nil
+    var openedCellIndex: Int?
     
     let cellID = "inboxCell"
     
@@ -45,37 +41,32 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        //cell.nameLabel.text = people[indexPath.row].name
+        cell.cellForRowConfigure()
         if openedCellIndex == indexPath.row {
-            cell.bioLabel.text = people[indexPath.row].bio
+            cell.bioField.isHidden = false
         } else {
-            cell.bioLabel.text = "tap to expand -->"
+            cell.bioField.isHidden = true
         }
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if openedCellIndex == indexPath.row {
-            let tappedCell = tableView.cellForRow(at: indexPath) as! CustomCell
-            return
-        } else if openedCellIndex == nil {
-            guard let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell else {return}
-            tappedCell.nameTextView.isUserInteractionEnabled = true
-            tappedCell.nameTextView.resignFirstResponder()
-            tappedCell.bioLabel.text = people[indexPath.row].bio
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            openedCellIndex = indexPath.row
-            return
-        } else if let openedCell = openedCellIndex {
+        guard openedCellIndex != indexPath.row else { return }
+        if let openedCell = openedCellIndex {
             let indexPath = IndexPath(row: openedCell, section: (tableView.numberOfSections - 1))
             if let lastTappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
-                lastTappedCell.nameTextView.isUserInteractionEnabled = false
-                lastTappedCell.bioLabel.text = "tap to expand -->"
+                lastTappedCell.collapse()
                 tableView.beginUpdates()
                 tableView.endUpdates()
             }
             openedCellIndex = nil
+        } else {
+            if let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
+                tappedCell.openCellConfigure()
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+            openedCellIndex = indexPath.row
         }
     }
     
@@ -89,16 +80,14 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === tableView)
+        return (touch.view === view)
     }
     
     @objc func closeTheCell(_ gesture: UITapGestureRecognizer) {
         if let openedCell = openedCellIndex {
             let indexPath = IndexPath(row: openedCell, section: tableView.numberOfSections - 1)
             let cell = tableView.cellForRow(at: indexPath) as! CustomCell
-            cell.nameTextView.isUserInteractionEnabled = false
-            cell.nameTextView.resignFirstResponder()
-            cell.bioLabel.text = "tap to expand -->"
+            cell.collapse()
             tableView.beginUpdates()
             tableView.endUpdates()
             openedCellIndex = nil
@@ -118,9 +107,8 @@ extension TableVC: UITableViewDragDelegate {
         let men = people[sourceIndexPath.row]
         people.remove(at: sourceIndexPath.row)
         people.insert(men, at: destinationIndexPath.row)
-        
-       let cellStatus = openedCellStatus[sourceIndexPath.row]
-        openedCellStatus.remove(at: sourceIndexPath.row)
-        openedCellStatus.insert(cellStatus, at: destinationIndexPath.row)
+        if openedCellIndex == sourceIndexPath.row {
+            openedCellIndex = destinationIndexPath.row
+        }
     }
 }

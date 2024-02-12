@@ -8,6 +8,6 @@
 import Foundation
 
 struct Person {
-    let name: String
-    let bio = "Bob is American singer, songwriter, dancer, and philanthropist. Known as the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century"
+    let name: String = ""
+    let bio: String = "Cunnilingus is an oral act involving a person stimulating the vulva of another by using the tongue and lips"
 }
