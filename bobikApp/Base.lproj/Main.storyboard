@@ -35,7 +35,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="R8e-Yu-G3R">
-                                                    <rect key="frame" x="33" y="0.0" width="320" height="66"/>
+                                                    <rect key="frame" x="33" y="0.0" width="320" height="53.333333333333336"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNJ-tA-j5a">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
@@ -44,13 +44,12 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8P-ES-Ykg">
-                                                            <rect key="frame" x="0.0" y="33" width="320" height="33"/>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <color key="textColor" systemColor="labelColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                        </textView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bioLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dj8-BG-U38">
+                                                            <rect key="frame" x="0.0" y="33" width="320" height="20.333333333333329"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -58,44 +57,17 @@
                                                 <constraint firstItem="SrP-IA-lyV" firstAttribute="centerY" secondItem="aNJ-tA-j5a" secondAttribute="centerY" id="3lH-2C-tnh"/>
                                             </constraints>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New To-Do" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7T-40-dpL">
-                                            <rect key="frame" x="58" y="11" width="315" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="jiM-qf-UQf"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzB-0t-XUF">
-                                            <rect key="frame" x="58" y="50" width="315" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="axO-6v-vxj"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="rzB-0t-XUF" firstAttribute="top" secondItem="aNJ-tA-j5a" secondAttribute="bottom" constant="14" id="8Cf-Wy-7LL"/>
                                         <constraint firstItem="l0c-rS-7sQ" firstAttribute="trailing" secondItem="BCJ-8U-j14" secondAttribute="trailingMargin" id="AHg-yT-BlO"/>
-                                        <constraint firstItem="rzB-0t-XUF" firstAttribute="leading" secondItem="M7T-40-dpL" secondAttribute="leading" id="B6o-0H-fMR"/>
                                         <constraint firstItem="l0c-rS-7sQ" firstAttribute="leading" secondItem="BCJ-8U-j14" secondAttribute="leadingMargin" id="TSE-HQ-Wry"/>
                                         <constraint firstItem="l0c-rS-7sQ" firstAttribute="top" secondItem="BCJ-8U-j14" secondAttribute="topMargin" id="ZK3-ai-ltX"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="M7T-40-dpL" secondAttribute="trailing" id="aF5-4B-ztg"/>
-                                        <constraint firstItem="M7T-40-dpL" firstAttribute="leading" secondItem="BCJ-8U-j14" secondAttribute="leadingMargin" constant="38" id="fRM-1h-jce"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="rzB-0t-XUF" secondAttribute="trailing" id="ib6-Qd-Qwb"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="l0c-rS-7sQ" secondAttribute="bottom" id="vIT-kC-E6Q"/>
-                                        <constraint firstItem="M7T-40-dpL" firstAttribute="top" secondItem="BCJ-8U-j14" secondAttribute="topMargin" id="waq-Ik-ogn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="bioField" destination="f8P-ES-Ykg" id="uc0-KR-xl4"/>
-                                    <outlet property="checkBox" destination="SrP-IA-lyV" id="4K9-DT-Mod"/>
-                                    <outlet property="nameField" destination="aNJ-tA-j5a" id="b9z-y1-dtj"/>
-                                    <outlet property="phBioField" destination="rzB-0t-XUF" id="gsx-4U-3en"/>
-                                    <outlet property="phNameField" destination="M7T-40-dpL" id="YKw-Tg-Fcy"/>
+                                    <outlet property="bioLabel" destination="dj8-BG-U38" id="mPa-Pq-hMd"/>
+                                    <outlet property="nameTextView" destination="aNJ-tA-j5a" id="Xrl-eB-YTx"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -107,7 +79,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Coa-HQ-g45" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="568.70229007633588" y="-168.3098591549296"/>
+            <point key="canvasLocation" x="563" y="-718"/>
         </scene>
     </scenes>
     <resources>
