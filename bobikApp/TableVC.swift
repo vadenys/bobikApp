@@ -43,9 +43,9 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
         //cell.nameLabel.text = people[indexPath.row].name
         if openedCellIndex == indexPath.row {
-            cell.bioLabel.text = people[indexPath.row].bio
+            cell.noteTextView.text = people[indexPath.row].bio
         } else {
-            cell.bioLabel.text = "tap to expand -->"
+            cell.noteTextView.text = "tap to expand -->"
         }
         return cell
     }
@@ -62,9 +62,11 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
             openedCellIndex = nil
         } else {
             if let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
+
                 tappedCell.nameTextView.isUserInteractionEnabled = true
                 tappedCell.nameTextView.resignFirstResponder()
-                tappedCell.bioLabel.text = people[indexPath.row].bio
+                tappedCell.noteTextView.isHidden = false
+                tappedCell.noteTextView.text = people[indexPath.row].bio
                 tableView.beginUpdates()
                 tableView.endUpdates()
             }

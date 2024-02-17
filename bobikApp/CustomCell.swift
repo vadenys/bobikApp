@@ -9,11 +9,14 @@ import UIKit
 
 class CustomCell: UITableViewCell {
     @IBOutlet weak var nameTextView: UITextView!
-    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var helpView: UIView!
+
 
     func collapse() {
         nameTextView.isUserInteractionEnabled = false
         nameTextView.resignFirstResponder()
-        bioLabel.text = "tap to expand -->"
+        noteTextView.isHidden = true
+        
     }
 }
