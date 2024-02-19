@@ -11,7 +11,9 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var nameTextView: UITextView!
     @IBOutlet weak var bioLabel: UILabel!
 
-    var openedCell = false
+    func collapse() {
+        nameTextView.isUserInteractionEnabled = false
+        nameTextView.resignFirstResponder()
+        bioLabel.text = "tap to expand -->"
+    }
 }
-
-
