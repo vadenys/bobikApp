@@ -45,7 +45,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         if openedCellIndex == indexPath.row {
             cell.bioLabel.text = people[indexPath.row].bio
         } else {
-            cell.bioLabel.text = "tap to expand -->"
+            cell.bioLabel.isHidden = true
         }
         return cell
     }
@@ -62,8 +62,9 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
             openedCellIndex = nil
         } else {
             if let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
-                tappedCell.nameTextView.isUserInteractionEnabled = true
-                tappedCell.nameTextView.resignFirstResponder()
+                tappedCell.nameLabel.isUserInteractionEnabled = true
+                tappedCell.nameLabel.resignFirstResponder()
+                tappedCell.bioLabel.isHidden = false
                 tappedCell.bioLabel.text = people[indexPath.row].bio
                 tableView.beginUpdates()
                 tableView.endUpdates()
