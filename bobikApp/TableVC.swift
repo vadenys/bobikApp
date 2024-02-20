@@ -33,7 +33,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
 
     let cellID = "inboxCell"
 
-    // MARK: - Table view data source
+       // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
@@ -41,7 +41,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        //cell.nameLabel.text = people[indexPath.row].name
+        cell.addGestureRecogniserCheckBox()
         if openedCellIndex == indexPath.row {
             cell.bioLabel.text = people[indexPath.row].bio
         } else {
@@ -49,30 +49,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         }
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard openedCellIndex != indexPath.row else { return }
-        if let openedCell = openedCellIndex {
-            let indexPath = IndexPath(row: openedCell, section: (tableView.numberOfSections - 1))
-            if let lastTappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
-                lastTappedCell.collapse()
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            }
-            openedCellIndex = nil
-        } else {
-            if let tappedCell = tableView.cellForRow(at: indexPath) as? CustomCell {
-                tappedCell.nameLabel.isUserInteractionEnabled = true
-                tappedCell.nameLabel.resignFirstResponder()
-                tappedCell.bioLabel.isHidden = false
-                tappedCell.bioLabel.text = people[indexPath.row].bio
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            }
-            openedCellIndex = indexPath.row
-        }
-    }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         people.remove(at: indexPath.row)
         if openedCellIndex == indexPath.row {
@@ -82,18 +59,29 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         tableView.deleteRows(at: rowIndex, with: .automatic)
     }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === tableView)
-    }
-
     @objc func closeTheCell(_ gesture: UITapGestureRecognizer) {
-        if let openedCell = openedCellIndex {
-            let indexPath = IndexPath(row: openedCell, section: tableView.numberOfSections - 1)
+        let touchLocation = gesture.location(in: view)
+        let touchIndexPath = tableView.indexPathForRow(at: touchLocation)
+
+        // first to know if there are opened cells
+        if let cellIndex = openedCellIndex {
+            guard openedCellIndex != touchIndexPath?.row else { return }
+            let indexPath = IndexPath(row: cellIndex, section: tableView.numberOfSections - 1)
             let cell = tableView.cellForRow(at: indexPath) as! CustomCell
             cell.collapse()
             tableView.beginUpdates()
             tableView.endUpdates()
             openedCellIndex = nil
+        // no open cells and tapped on a cell
+        } else if let indexPath = touchIndexPath {
+            let touchCell = tableView.cellForRow(at: indexPath) as! CustomCell
+            touchCell.nameLabel.isUserInteractionEnabled = true
+            touchCell.nameLabel.resignFirstResponder()
+            touchCell.bioLabel.isHidden = false
+            touchCell.bioLabel.text = people[indexPath.row].bio
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            openedCellIndex = indexPath.row
         }
     }
 }
