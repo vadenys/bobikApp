@@ -14,26 +14,57 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.dragDelegate = self
-        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(closeTheCell))
+
+        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(colapseCell))
         gestureRecogniser.delegate = self
-        view.addGestureRecognizer(gestureRecogniser)
+        tableView.addGestureRecognizer(gestureRecogniser)
         gestureRecogniser.cancelsTouchesInView = false
     }
 
     lazy var people = {
         var peops = [Person]()
         for i in 1...5 {
-            let man = Person(name: "Bob \(i)")
+            let man = Person()
             peops.append(man)
         }
         return peops
     }()
 
-    var openedCellIndex: Int?
-
+    var expandedCellIndexPath: IndexPath?
     let cellID = "inboxCell"
 
-       // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        people.remove(at: indexPath.row)
+        if expandedCellIndexPath == indexPath {
+            expandedCellIndexPath = nil
+        }
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard expandedCellIndexPath != indexPath else { return }
+        if let indexPath = expandedCellIndexPath {
+            expandedCellIndexPath = nil
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        } else {
+            expandedCellIndexPath = indexPath
+            tableView.reloadRows(at: [expandedCellIndexPath!], with: .automatic)
+        }
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return (touch.view === tableView)
+    }
+
+    @objc func colapseCell(_ gesture: UITapGestureRecognizer) {
+        guard expandedCellIndexPath != nil else { return }
+        if let indexPath = expandedCellIndexPath {
+            expandedCellIndexPath = nil
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+
+    // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
@@ -41,52 +72,24 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        cell.addGestureRecogniserCheckBox()
-        if openedCellIndex == indexPath.row {
-            cell.bioLabel.text = people[indexPath.row].bio
-        } else {
-            cell.bioLabel.isHidden = true
-        }
+        cellCollapseExpand(cell: cell, indexPath: indexPath)
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        people.remove(at: indexPath.row)
-        if openedCellIndex == indexPath.row {
-            openedCellIndex = nil
-        }
-        let rowIndex = [indexPath]
-        tableView.deleteRows(at: rowIndex, with: .automatic)
-    }
 
-    @objc func closeTheCell(_ gesture: UITapGestureRecognizer) {
-        let touchLocation = gesture.location(in: view)
-        let touchIndexPath = tableView.indexPathForRow(at: touchLocation)
+    // MARK: - Cell collapse/expand configuration
 
-        // first to know if there are opened cells
-        if let cellIndex = openedCellIndex {
-            guard openedCellIndex != touchIndexPath?.row else { return }
-            let indexPath = IndexPath(row: cellIndex, section: tableView.numberOfSections - 1)
-            let cell = tableView.cellForRow(at: indexPath) as! CustomCell
-            cell.collapse()
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            openedCellIndex = nil
-        // no open cells and tapped on a cell
-        } else if let indexPath = touchIndexPath {
-            let touchCell = tableView.cellForRow(at: indexPath) as! CustomCell
-            touchCell.nameLabel.isUserInteractionEnabled = true
-            touchCell.nameLabel.resignFirstResponder()
-            touchCell.bioLabel.isHidden = false
-            touchCell.bioLabel.text = people[indexPath.row].bio
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            openedCellIndex = indexPath.row
+    func cellCollapseExpand(cell: CustomCell, indexPath: IndexPath) {
+        if expandedCellIndexPath == indexPath {
+            cell.bioLabel.isHidden = false
+            cell.nameLabel.isUserInteractionEnabled = true
+            cell.nameLabel.resignFirstResponder()
+        } else {
+            cell.bioLabel.isHidden = true
         }
     }
 }
 
-// Row rearrangement
+// MARK: - Row rearrangement
 extension TableVC: UITableViewDragDelegate {
 
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -98,8 +101,8 @@ extension TableVC: UITableViewDragDelegate {
         let men = people[sourceIndexPath.row]
         people.remove(at: sourceIndexPath.row)
         people.insert(men, at: destinationIndexPath.row)
-        if openedCellIndex == sourceIndexPath.row {
-            openedCellIndex = destinationIndexPath.row
+        if expandedCellIndexPath == sourceIndexPath {
+            expandedCellIndexPath = destinationIndexPath
         }
     }
 }

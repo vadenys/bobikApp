@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8pd-EV-WrZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="V9W-t6-kUd">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--TableVC-->
+        <!--To Do-List-->
         <scene sceneID="Zb5-2r-zjz">
             <objects>
                 <tableViewController id="8pd-EV-WrZ" customClass="TableVC" customModule="bobikApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,10 +19,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="inboxCell" id="qIS-Cc-WET" customClass="CustomCell" customModule="bobikApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="71.333335876464844"/>
+                                <rect key="frame" x="0.0" y="50" width="393" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qIS-Cc-WET" id="BCJ-8U-j14">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="71.333335876464844"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="TSX-Ve-wSD">
@@ -35,7 +35,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xEg-Rc-x3B">
-                                            <rect key="frame" x="48" y="11.000000000000004" width="325" height="49.333333333333343"/>
+                                            <rect key="frame" x="48" y="11" width="325" height="49"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ9-kh-Q2M">
                                                     <rect key="frame" x="0.0" y="0.0" width="325" height="20.666666666666668"/>
@@ -44,7 +44,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR2-Rz-Z9q">
-                                                    <rect key="frame" x="0.0" y="28.666666666666664" width="325" height="20.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="28.666666666666664" width="325" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -59,12 +59,11 @@
                                         <constraint firstItem="TSX-Ve-wSD" firstAttribute="top" secondItem="BCJ-8U-j14" secondAttribute="topMargin" constant="0.33000000000000002" id="Y3f-JZ-q8g"/>
                                         <constraint firstItem="xEg-Rc-x3B" firstAttribute="bottom" secondItem="BCJ-8U-j14" secondAttribute="bottomMargin" id="ftD-A2-z2Z"/>
                                         <constraint firstItem="xEg-Rc-x3B" firstAttribute="trailing" secondItem="BCJ-8U-j14" secondAttribute="trailingMargin" id="lM7-aO-EVH"/>
-                                        <constraint firstItem="TSX-Ve-wSD" firstAttribute="centerY" secondItem="gQ9-kh-Q2M" secondAttribute="centerY" id="sOe-4P-hQ8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="bioLabel" destination="dR2-Rz-Z9q" id="QeY-Ds-9r1"/>
-                                    <outlet property="checkBoxView" destination="TSX-Ve-wSD" id="XNC-Jm-fYC"/>
+                                    <outlet property="checkBoxImageView" destination="TSX-Ve-wSD" id="Nef-vl-HfS"/>
                                     <outlet property="nameLabel" destination="gQ9-kh-Q2M" id="tJI-2H-O1q"/>
                                 </connections>
                             </tableViewCell>
@@ -74,8 +73,27 @@
                             <outlet property="delegate" destination="8pd-EV-WrZ" id="ylH-39-VKz"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="To Do-List" id="cIO-lU-7Jh"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Coa-HQ-g45" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1295" y="-718"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Ci-LE-BRY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V9W-t6-kUd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6hx-NP-aqL">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8pd-EV-WrZ" kind="relationship" relationship="rootViewController" id="di7-Vr-1SB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fjU-fs-SeW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="562.59541984732823" y="-718.30985915492965"/>
         </scene>
