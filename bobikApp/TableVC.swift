@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableVC: UITableViewController, UIGestureRecognizerDelegate {
+class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,26 +65,39 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        cellCollapseExpand(cell: cell, indexPath: indexPath)
+        cell.delegate = self
+        cellConfiguration(cell: cell, indexPath: indexPath)
         return cell
     }
 
     // MARK: - Cell collapse/expand configuration
-
-    func cellCollapseExpand(cell: CustomCell, indexPath: IndexPath) {
+    func cellConfiguration(cell: CustomCell, indexPath: IndexPath) {
         if expandedCellIndexPath == indexPath {
             cell.bioLabel.isHidden = false
             cell.nameLabel.isUserInteractionEnabled = true
             cell.nameLabel.resignFirstResponder()
         } else {
             cell.bioLabel.isHidden = true
+        }
+        if people[indexPath.row].checked {
+            cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
+        } else {
+            cell.checkBoxImageView.image = UIImage(systemName: "square")
+        }
+    }
+
+    // MARK: - Cell delegate
+    func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        let touchLocation = gesture.location(in: tableView)
+        if let touchIndexPath = tableView.indexPathForRow(at: touchLocation) {
+            people[touchIndexPath.row].checked.toggle()
+            tableView.reloadRows(at: [touchIndexPath], with: .automatic)
         }
     }
 }
