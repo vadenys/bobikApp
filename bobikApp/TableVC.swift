@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableVC: UITableViewController, UIGestureRecognizerDelegate {
+class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,17 +38,17 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         if expandedCellIndexPath == indexPath {
             expandedCellIndexPath = nil
         }
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.deleteRows(at: [indexPath], with: .none)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard expandedCellIndexPath != indexPath else { return }
         if let indexPath = expandedCellIndexPath {
             expandedCellIndexPath = nil
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadRows(at: [indexPath], with: .none)
         } else {
             expandedCellIndexPath = indexPath
-            tableView.reloadRows(at: [expandedCellIndexPath!], with: .automatic)
+            tableView.reloadRows(at: [expandedCellIndexPath!], with: .none)
         }
     }
 
@@ -60,31 +60,46 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         guard expandedCellIndexPath != nil else { return }
         if let indexPath = expandedCellIndexPath {
             expandedCellIndexPath = nil
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomCell
-        cellCollapseExpand(cell: cell, indexPath: indexPath)
+        cell.delegate = self
+        cellConfiguration(cell: cell, indexPath: indexPath)
         return cell
     }
 
     // MARK: - Cell collapse/expand configuration
-
-    func cellCollapseExpand(cell: CustomCell, indexPath: IndexPath) {
+    func cellConfiguration(cell: CustomCell, indexPath: IndexPath) {
         if expandedCellIndexPath == indexPath {
             cell.bioLabel.isHidden = false
             cell.nameLabel.isUserInteractionEnabled = true
             cell.nameLabel.resignFirstResponder()
         } else {
             cell.bioLabel.isHidden = true
+        }
+        if people[indexPath.row].checked {
+            cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
+        } else {
+            cell.checkBoxImageView.image = UIImage(systemName: "square")
+        }
+    }
+
+    // MARK: - Cell delegate
+    func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        let touchLocation = gesture.location(in: tableView)
+        let touchIndexPath = tableView.indexPathForRow(at: touchLocation)
+        if let indexPath = touchIndexPath {
+            let touchCell = tableView.cellForRow(at: indexPath) as! CustomCell
+            people[indexPath.row].checked.toggle()
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
 }

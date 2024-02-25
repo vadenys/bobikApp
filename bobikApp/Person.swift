@@ -10,5 +10,5 @@ import Foundation
 struct Person {
     let name = ""
     let bio = ""
-    let checked = false
+    var checked = false
 }

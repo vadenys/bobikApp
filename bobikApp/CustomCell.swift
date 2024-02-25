@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 protocol cellDelegate: AnyObject {
     func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer)
 }
@@ -33,12 +34,6 @@ class CustomCell: UITableViewCell {
     }
 
     @objc func toggleCheckBox(_ gesture: UITapGestureRecognizer) {
-        checked.toggle()
         delegate?.toggle(self, gesture: gesture)
-        if checked {
-            checkBoxImageView.image = UIImage(systemName: "checkmark.square")
-        } else {
-            checkBoxImageView.image = UIImage(systemName: "square")
-        }
     }
 }
