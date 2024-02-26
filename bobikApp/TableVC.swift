@@ -15,7 +15,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.dragDelegate = self
-
+        
         let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(collapseCell))
         gestureRecogniser.delegate = self
         tableView.addGestureRecognizer(gestureRecogniser)
@@ -31,7 +31,8 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
         return toDoList
     }()
 
-    var expandedCellIndexPath: IndexPath?
+    var expandedCellIndexPath: IndexPath? 
+
     let cellID = "inboxCell"
 
     @IBAction func addNewToDoTask() {
@@ -110,13 +111,18 @@ extension TableVC {
 
 // MARK: - Row rearrangement
 extension TableVC: UITableViewDragDelegate {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        expandedCellIndexPath == nil
+    }
 
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard expandedCellIndexPath == nil else { return [] }
         let itemProvider = NSItemProvider()
         return [UIDragItem(itemProvider: itemProvider)]
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard expandedCellIndexPath == nil else { return }
         let task = toDoList[sourceIndexPath.row]
         toDoList.remove(at: sourceIndexPath.row)
         toDoList.insert(task, at: destinationIndexPath.row)
