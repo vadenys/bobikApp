@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Person {
-    let name = ""
-    let bio = ""
-    var checked = false
+struct toDoTask {
+    let toDoTaskName = ""
+    let toDoNotes = ""
+    var toDoChecked = false
 }

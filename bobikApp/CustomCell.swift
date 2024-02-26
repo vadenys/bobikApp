@@ -16,11 +16,11 @@ class CustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addGestureRecogniserCheckBox()
-        bioLabel.text = "Bob is American singer, songwriter, dancer, and philanthropist. Known as the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century"
+        todoNotesLabel.text = "Bob is American singer, songwriter, dancer, and philanthropist. Known as the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century"
     }
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var todoNameLabel: UILabel!
+    @IBOutlet weak var todoNotesLabel: UILabel!
     @IBOutlet weak var checkBoxImageView: UIImageView!
 
     weak var delegate: cellDelegate?

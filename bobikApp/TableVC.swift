@@ -21,20 +21,20 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate 
         gestureRecogniser.cancelsTouchesInView = false
     }
 
-    lazy var people = {
-        var peops = [Person]()
+    lazy var toDoList = {
+        var toDoList = [toDoTask]()
         for i in 1...5 {
-            let man = Person()
-            peops.append(man)
+            let task = toDoTask()
+            toDoList.append(task)
         }
-        return peops
+        return toDoList
     }()
 
     var expandedCellIndexPath: IndexPath?
     let cellID = "inboxCell"
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        people.remove(at: indexPath.row)
+        toDoList.remove(at: indexPath.row)
         if expandedCellIndexPath == indexPath {
             expandedCellIndexPath = nil
         }
@@ -66,7 +66,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate 
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return people.count
+        return toDoList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,13 +79,13 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate 
     // MARK: - Cell collapse/expand configuration
     func cellConfiguration(cell: CustomCell, indexPath: IndexPath) {
         if expandedCellIndexPath == indexPath {
-            cell.bioLabel.isHidden = false
-            cell.nameLabel.isUserInteractionEnabled = true
-            cell.nameLabel.resignFirstResponder()
+            cell.todoNotesLabel.isHidden = false
+            cell.todoNameLabel.isUserInteractionEnabled = true
+            cell.todoNameLabel.resignFirstResponder()
         } else {
-            cell.bioLabel.isHidden = true
+            cell.todoNotesLabel.isHidden = true
         }
-        if people[indexPath.row].checked {
+        if toDoList[indexPath.row].toDoChecked {
             cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
         } else {
             cell.checkBoxImageView.image = UIImage(systemName: "square")
@@ -96,7 +96,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, cellDelegate 
     func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
         let touchLocation = gesture.location(in: tableView)
         if let touchIndexPath = tableView.indexPathForRow(at: touchLocation) {
-            people[touchIndexPath.row].checked.toggle()
+            toDoList[touchIndexPath.row].toDoChecked.toggle()
             tableView.reloadRows(at: [touchIndexPath], with: .automatic)
         }
     }
@@ -111,9 +111,9 @@ extension TableVC: UITableViewDragDelegate {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let men = people[sourceIndexPath.row]
-        people.remove(at: sourceIndexPath.row)
-        people.insert(men, at: destinationIndexPath.row)
+        let men = toDoList[sourceIndexPath.row]
+        toDoList.remove(at: sourceIndexPath.row)
+        toDoList.insert(men, at: destinationIndexPath.row)
         if expandedCellIndexPath == sourceIndexPath {
             expandedCellIndexPath = destinationIndexPath
         }
