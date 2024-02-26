@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate {
+class TableVC: UITableViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,16 +16,16 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate 
         tableView.separatorStyle = .none
         tableView.dragDelegate = self
 
-        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(colapseCell))
+        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(collapseCell))
         gestureRecogniser.delegate = self
         tableView.addGestureRecognizer(gestureRecogniser)
         gestureRecogniser.cancelsTouchesInView = false
     }
 
     lazy var toDoList = {
-        var toDoList = [toDoTask]()
+        var toDoList = [ToDoTask]()
         for i in 1...5 {
-            let task = toDoTask()
+            let task = ToDoTask()
             toDoList.append(task)
         }
         return toDoList
@@ -35,7 +35,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate 
     let cellID = "inboxCell"
 
     @IBAction func addNewToDoTask() {
-        let newTask = toDoTask()
+        let newTask = ToDoTask()
         let indexPath = IndexPath(row: toDoList.count, section: tableView.numberOfSections - 1)
         toDoList.append(newTask)
         tableView.insertRows(at: [indexPath], with: .automatic)
@@ -46,7 +46,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate 
         return (touch.view === tableView)
     }
 
-    @objc func colapseCell(_ gesture: UITapGestureRecognizer) {
+    @objc func collapseCell(_ gesture: UITapGestureRecognizer) {
         if let indexPath = expandedCellIndexPath {
             let touchLocation = gesture.location(in: tableView)
             if tableView.indexPathForRow(at: touchLocation) == nil {
@@ -69,18 +69,6 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate 
             cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
         } else {
             cell.checkBoxImageView.image = UIImage(systemName: "square")
-        }
-    }
-
-    // MARK: - Cell delegate
-    func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
-        let touchLocation = gesture.location(in: tableView)
-        if let touchIndexPath = tableView.indexPathForRow(at: touchLocation) {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.toDoList[touchIndexPath.row].toDoChecked.toggle()
-                self.tableView.reloadRows(at: [touchIndexPath], with: .none)
-            }
         }
     }
 }
@@ -134,6 +122,20 @@ extension TableVC: UITableViewDragDelegate {
         toDoList.insert(task, at: destinationIndexPath.row)
         if expandedCellIndexPath == sourceIndexPath {
             expandedCellIndexPath = destinationIndexPath
+        }
+    }
+}
+
+// MARK: - Cell delegate
+extension TableVC: CellDelegate {
+    func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        let touchLocation = gesture.location(in: tableView)
+        if let touchIndexPath = tableView.indexPathForRow(at: touchLocation) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.toDoList[touchIndexPath.row].toDoChecked.toggle()
+                self.tableView.reloadRows(at: [touchIndexPath], with: .none)
+            }
         }
     }
 }

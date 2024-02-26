@@ -14,7 +14,7 @@
 		7F3BA9FA2B5D9F640092C286 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BA9F92B5D9F640092C286 /* Assets.xcassets */; };
 		7F3BA9FD2B5D9F640092C286 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BA9FB2B5D9F640092C286 /* LaunchScreen.storyboard */; };
 		7F3BAA052B5DAA5D0092C286 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA042B5DAA5D0092C286 /* TableVC.swift */; };
-		7F3BAA072B5DAAA20092C286 /* toDoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA062B5DAAA20092C286 /* toDoTask.swift */; };
+		7F3BAA072B5DAAA20092C286 /* ToDoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA062B5DAAA20092C286 /* ToDoTask.swift */; };
 		7F3BAA092B5DAACE0092C286 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BAA082B5DAACE0092C286 /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +28,7 @@
 		7F3BA9FC2B5D9F640092C286 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F3BA9FE2B5D9F640092C286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F3BAA042B5DAA5D0092C286 /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
-		7F3BAA062B5DAAA20092C286 /* toDoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toDoTask.swift; sourceTree = "<group>"; };
+		7F3BAA062B5DAAA20092C286 /* ToDoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTask.swift; sourceTree = "<group>"; };
 		7F3BAA082B5DAACE0092C286 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +70,7 @@
 				7F3BA9FB2B5D9F640092C286 /* LaunchScreen.storyboard */,
 				7F3BA9FE2B5D9F640092C286 /* Info.plist */,
 				7F3BA9F62B5D9F640092C286 /* bobikApp.xcdatamodeld */,
-				7F3BAA062B5DAAA20092C286 /* toDoTask.swift */,
+				7F3BAA062B5DAAA20092C286 /* ToDoTask.swift */,
 				7F3BAA082B5DAACE0092C286 /* CustomCell.swift */,
 			);
 			path = bobikApp;
@@ -147,7 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F3BAA072B5DAAA20092C286 /* toDoTask.swift in Sources */,
+				7F3BAA072B5DAAA20092C286 /* ToDoTask.swift in Sources */,
 				7F3BA9F82B5D9F640092C286 /* bobikApp.xcdatamodeld in Sources */,
 				7F3BA9EE2B5D9F630092C286 /* AppDelegate.swift in Sources */,
 				7F3BAA052B5DAA5D0092C286 /* TableVC.swift in Sources */,

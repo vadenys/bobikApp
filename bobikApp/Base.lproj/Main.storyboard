@@ -74,7 +74,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To-Do-List" id="cIO-lU-7Jh" userLabel="To-Do-List">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="83H-Gx-1dG"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="83H-Gx-1dG">
+                            <connections>
+                                <action selector="addNewToDoTask" destination="8pd-EV-WrZ" id="E4W-5F-cPg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Coa-HQ-g45" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct toDoTask {
+struct ToDoTask {
     var toDoTaskName = ""
     var toDoNotes = ""
     var toDoChecked = false
