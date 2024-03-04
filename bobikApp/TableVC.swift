@@ -63,8 +63,18 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
             cell.todoNotesLabel.isHidden = false
             cell.todoNameLabel.isUserInteractionEnabled = true
             cell.todoNameLabel.resignFirstResponder()
+            // icons
+            cell.calendarIcon.isHidden = false
+            cell.tagsIcon.isHidden = false
+            cell.checklistIcon.isHidden = false
+            cell.deadlineIcon.isHidden = false
         } else {
             cell.todoNotesLabel.isHidden = true
+            // icons
+            cell.calendarIcon.isHidden = true
+            cell.tagsIcon.isHidden = true
+            cell.checklistIcon.isHidden = true
+            cell.deadlineIcon.isHidden = true
         }
         if toDoList[indexPath.row].toDoChecked {
             cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
@@ -134,7 +144,8 @@ extension TableVC: UITableViewDragDelegate {
 
 // MARK: - Cell delegate
 extension TableVC: CellDelegate {
-    func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+
+    func toggleCheckBox(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
         let touchLocation = gesture.location(in: tableView)
         if let touchIndexPath = tableView.indexPathForRow(at: touchLocation) {
             DispatchQueue.main.async { [weak self] in
@@ -143,5 +154,21 @@ extension TableVC: CellDelegate {
                 self.tableView.reloadRows(at: [touchIndexPath], with: .none)
             }
         }
+    }
+
+    func tapCalendarIcon(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        print("calendar")
+    }
+
+    func tapTagsIcon(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        print("tagsIcon")
+    }
+
+    func tapChecklistIcon(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        print("checklist")
+    }
+
+    func tapDeadlineIcon(_ controller: CustomCell, gesture: UITapGestureRecognizer) {
+        print("deadline")
     }
 }
