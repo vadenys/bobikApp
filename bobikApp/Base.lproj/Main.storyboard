@@ -62,9 +62,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="bioLabel" destination="dR2-Rz-Z9q" id="QeY-Ds-9r1"/>
                                     <outlet property="checkBoxImageView" destination="TSX-Ve-wSD" id="Nef-vl-HfS"/>
-                                    <outlet property="nameLabel" destination="gQ9-kh-Q2M" id="tJI-2H-O1q"/>
+                                    <outlet property="todoNameLabel" destination="gQ9-kh-Q2M" id="WAO-Yx-rh1"/>
+                                    <outlet property="todoNotesLabel" destination="dR2-Rz-Z9q" id="00l-VQ-WJc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
