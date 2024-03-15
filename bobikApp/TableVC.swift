@@ -13,6 +13,7 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate, CellDelegate 
         super.viewDidLoad()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.separatorStyle = .none
         tableView.dragDelegate = self
 
         let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(colapseCell))
