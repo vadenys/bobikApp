@@ -8,7 +8,7 @@
 import Foundation
 
 struct toDoTask {
-    let toDoTaskName = ""
-    let toDoNotes = ""
+    var toDoTaskName = ""
+    var toDoNotes = ""
     var toDoChecked = false
 }

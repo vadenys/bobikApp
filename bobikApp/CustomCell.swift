@@ -7,11 +7,15 @@
 
 import UIKit
 
-protocol cellDelegate: AnyObject {
+protocol CellDelegate: AnyObject {
     func toggle(_ controller: CustomCell, gesture: UITapGestureRecognizer)
 }
 
 class CustomCell: UITableViewCell {
+
+    @IBOutlet weak var todoNameLabel: UILabel!
+    @IBOutlet weak var todoNotesLabel: UILabel!
+    @IBOutlet weak var checkBoxImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,11 +23,7 @@ class CustomCell: UITableViewCell {
         todoNotesLabel.text = "Bob is American singer, songwriter, dancer, and philanthropist. Known as the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century"
     }
 
-    @IBOutlet weak var todoNameLabel: UILabel!
-    @IBOutlet weak var todoNotesLabel: UILabel!
-    @IBOutlet weak var checkBoxImageView: UIImageView!
-
-    weak var delegate: cellDelegate?
+    weak var delegate: CellDelegate?
 
     func addGestureRecogniserCheckBox() {
         let gestureRecogniserCheckBox = UITapGestureRecognizer(target: self, action: #selector(toggleCheckBox))
