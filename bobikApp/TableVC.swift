@@ -63,18 +63,10 @@ class TableVC: UITableViewController, UIGestureRecognizerDelegate {
             cell.todoNotesLabel.isHidden = false
             cell.todoNameLabel.isUserInteractionEnabled = true
             cell.todoNameLabel.resignFirstResponder()
-            // icons
-            cell.calendarIcon.isHidden = false
-            cell.tagsIcon.isHidden = false
-            cell.checklistIcon.isHidden = false
-            cell.deadlineIcon.isHidden = false
+            cell.detailsView.isHidden = false
         } else {
             cell.todoNotesLabel.isHidden = true
-            // icons
-            cell.calendarIcon.isHidden = true
-            cell.tagsIcon.isHidden = true
-            cell.checklistIcon.isHidden = true
-            cell.deadlineIcon.isHidden = true
+            cell.detailsView.isHidden = true
         }
         if toDoList[indexPath.row].toDoChecked {
             cell.checkBoxImageView.image = UIImage(systemName: "checkmark.square")
