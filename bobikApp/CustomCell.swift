@@ -26,6 +26,8 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var checklistIcon: UIImageView!
     @IBOutlet weak var deadlineIcon: UIImageView!
     
+    @IBOutlet weak var detailsView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         addGestureRecogniserCheckBox()
@@ -33,11 +35,6 @@ class CustomCell: UITableViewCell {
         addGestureRecogniserTagsIcon()
         addGestureRecogniserChecklistIcon()
         addGestureRecogniserDeadlineIcon()
-
-        calendarIcon.isHidden = true
-        tagsIcon.isHidden = true
-        checklistIcon.isHidden = true
-        deadlineIcon.isHidden = true
 
         todoNotesLabel.text = "Bob is American singer, songwriter, dancer, and philanthropist. Known as the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century"
     }
